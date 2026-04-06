@@ -26,9 +26,9 @@ body{
     max-width:800px;
 }
 
-/* 🔥 الشعار (تم تكبيره) */
+/* 🔥 الشعار */
 .logo-section img{
-    width:220px; /* 🔥 كان صغير - الآن أكبر */
+    width:220px;
     margin-bottom:25px;
 
     filter:
@@ -49,8 +49,24 @@ body{
     font-weight:bold;
 }
 
-.title span{
-    color:#e50914;
+/* 🔥 قصة عشق احترافية */
+.brand{
+    background:linear-gradient(270deg,#ff1a1a,#e50914,#ff4d4d);
+    background-size:400% 400%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:
+        0 0 10px rgba(229,9,20,0.7),
+        0 0 25px rgba(229,9,20,0.6),
+        0 0 50px rgba(229,9,20,0.4);
+
+    animation:glowMove 5s infinite linear;
+}
+
+@keyframes glowMove{
+    0%{background-position:0% 50%;}
+    100%{background-position:100% 50%;}
 }
 
 /* البحث */
@@ -94,7 +110,7 @@ body{
     box-shadow:0 0 20px rgba(229,9,20,0.8);
 }
 
-/* 🔥 النص الجديد */
+/* النص السفلي */
 .sub-text{
     margin-top:35px;
     font-size:22px;
@@ -116,7 +132,7 @@ body{
 </div>
 
 <div class="title">
-    محرك بحث <span>قصة عشق</span>
+    محرك بحث <span class="brand">قصة عشق</span>
 </div>
 
 <div class="search-box">
