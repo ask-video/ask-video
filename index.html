@@ -44,14 +44,12 @@ body{
         0 0 50px #ff1a1a;
 }
 
-/* 🔍 البحث */
 .search-box{
     display:flex;
     border-radius:50px;
     overflow:hidden;
     background:#1a1a1a;
     border:1px solid #222;
-    position:relative;
 }
 
 .search-box input{
@@ -76,33 +74,6 @@ body{
 
 .search-btn:hover{
     background:#ff1a1a;
-}
-
-/* 🔥 صندوق الاقتراحات */
-#sugBox{
-    position:absolute;
-    top:110%;
-    left:0;
-    right:0;
-    background:#111;
-    border:1px solid #333;
-    border-radius:15px;
-    display:none;
-    z-index:999;
-    overflow:hidden;
-}
-
-.sug-item{
-    padding:12px;
-    text-align:right;
-    cursor:pointer;
-    border-bottom:1px solid #222;
-    color:#bbb;
-}
-
-.sug-item:hover{
-    background:#e50914;
-    color:white;
 }
 
 .sub-text{
@@ -161,7 +132,7 @@ body{
 <input type="text" id="mainSearch" placeholder="ابحث عن مسلسلك المفضل..." autocomplete="off">
 <button class="search-btn" id="execSearch">🔍</button>
 
-<!-- 🔥 الاقتراحات -->
+<!-- تم إضافة هذا فقط -->
 <div id="sugBox"></div>
 
 </div>
@@ -202,10 +173,8 @@ body{
 const sInput=document.getElementById('mainSearch');
 const sBtn=document.getElementById('execSearch');
 const sBox=document.getElementById('sugBox');
+let debounceTimer;
 
-let debounce;
-
-/* 🔍 البحث */
 function startSearch(val){
     if(val.trim()!==""){
         window.location.href=`https://far.q-ask.video/?s=${encodeURIComponent(val)}`;
@@ -218,9 +187,9 @@ sInput.addEventListener("keydown",function(e){
     if(e.key==="Enter") startSearch(this.value);
 });
 
-/* 🔥 الإكمال التلقائي */
+/* إصلاح الإكمال التلقائي */
 sInput.addEventListener("input",function(){
-    clearTimeout(debounce);
+    clearTimeout(debounceTimer);
     const q=this.value.trim();
 
     if(q.length<2){
@@ -228,16 +197,12 @@ sInput.addEventListener("input",function(){
         return;
     }
 
-    debounce=setTimeout(()=>{
-        fetchSuggestions(q);
+    debounceTimer=setTimeout(()=>{
+        const script=document.createElement("script");
+        script.src=`https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(q)}&callback=googleSuggest`;
+        document.body.appendChild(script);
     },300);
 });
-
-function fetchSuggestions(query){
-    const script=document.createElement("script");
-    script.src=`https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(query)}&callback=googleSuggest`;
-    document.body.appendChild(script);
-}
 
 window.googleSuggest=function(data){
     const suggestions=data[1];
@@ -250,8 +215,9 @@ window.googleSuggest=function(data){
 
     suggestions.slice(0,6).forEach(text=>{
         const div=document.createElement("div");
-        div.className="sug-item";
         div.textContent=text;
+        div.style.padding="10px";
+        div.style.cursor="pointer";
 
         div.onclick=()=>{
             sInput.value=text;
@@ -264,14 +230,12 @@ window.googleSuggest=function(data){
     sBox.style.display="block";
 };
 
-/* إغلاق */
-document.addEventListener("click",(e)=>{
+document.addEventListener("click",function(e){
     if(!e.target.closest(".search-box")){
         sBox.style.display="none";
     }
 });
 
-/* FAQ */
 document.querySelectorAll(".faq-item").forEach(item=>{
     item.addEventListener("click",()=>{
         const answer=item.querySelector(".faq-answer");
