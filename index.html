@@ -165,3 +165,89 @@ sInput.addEventListener("keydown",function(e){
 
 </body>
 </html>
+
+<style>
+.faq-section{
+    margin-top:80px;
+    width:100%;
+    max-width:900px;
+}
+
+.faq-title{
+    text-align:center;
+    font-size:28px;
+    margin-bottom:30px;
+    font-weight:bold;
+}
+
+.faq-item{
+    background:linear-gradient(145deg,#0f1720,#111827);
+    border:1px solid #1f2937;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.faq-item:hover{
+    border-color:#e50914;
+}
+
+.faq-question{
+    font-size:18px;
+    color:#60a5fa;
+    font-weight:bold;
+}
+
+.faq-answer{
+    margin-top:15px;
+    color:#ccc;
+    font-size:15px;
+    display:none;
+    line-height:1.8;
+}
+</style>
+
+<div class="faq-section">
+
+<div class="faq-title">الأسئلة الشائعة</div>
+
+<div class="faq-item">
+    <div class="faq-question">ما هو موقع قصة عشق؟</div>
+    <div class="faq-answer">
+        موقع قصة عشق هو منصة متخصصة في عرض المسلسلات والأفلام التركية مترجمة للعربية بجودة عالية.
+    </div>
+</div>
+
+<div class="faq-item">
+    <div class="faq-question">كيف يعمل محرك البحث؟</div>
+    <div class="faq-answer">
+        يمكنك كتابة اسم المسلسل أو الفيلم وسيقوم محرك البحث بإظهار النتائج مباشرة من موقع قصة عشق.
+    </div>
+</div>
+
+<div class="faq-item">
+    <div class="faq-question">هل الموقع مجاني؟</div>
+    <div class="faq-answer">
+        نعم، يمكنك استخدام الموقع ومحرك البحث بشكل مجاني بالكامل بدون أي اشتراك.
+    </div>
+</div>
+
+<div class="faq-item">
+    <div class="faq-question">هل يمكن مشاهدة المسلسلات بجودة عالية؟</div>
+    <div class="faq-answer">
+        يوفر الموقع حلقات بجودات متعددة لتناسب جميع سرعات الإنترنت مع أفضل تجربة مشاهدة.
+    </div>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll(".faq-item").forEach(item=>{
+    item.addEventListener("click",()=>{
+        const answer=item.querySelector(".faq-answer");
+        answer.style.display = answer.style.display==="block" ? "none" : "block";
+    });
+});
+</script>
