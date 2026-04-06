@@ -25,24 +25,42 @@ body{
     max-width:700px;
 }
 
-/* 🔥 الشعار بدون خلفية + توهج */
-.logo-section img{
-    width:160px;
+/* 🔥 دمج الشعار مع الخلفية */
+.logo-section{
     margin-bottom:20px;
-    background:transparent;
-    border:none;
-    box-shadow:
-        0 0 25px rgba(229,9,20,0.4),
-        0 0 60px rgba(229,9,20,0.2);
-    filter:drop-shadow(0 0 15px rgba(229,9,20,0.6));
-    transition:0.4s;
 }
 
+.logo-section img{
+    width:140px;
+    display:block;
+    margin:auto;
+    background:transparent;
+    
+    /* إزالة الشكل */
+    border:none;
+
+    /* توهج ناعم */
+    filter:
+        drop-shadow(0 0 15px rgba(229,9,20,0.6))
+        drop-shadow(0 0 35px rgba(229,9,20,0.3));
+
+    /* Glow خارجي */
+    box-shadow:
+        0 0 40px rgba(229,9,20,0.25),
+        0 0 80px rgba(229,9,20,0.15);
+
+    transition:0.4s ease;
+}
+
+/* حركة خفيفة */
 .logo-section img:hover{
     transform:scale(1.05);
-    filter:drop-shadow(0 0 25px rgba(229,9,20,0.9));
+    filter:
+        drop-shadow(0 0 25px rgba(229,9,20,0.9))
+        drop-shadow(0 0 60px rgba(229,9,20,0.4));
 }
 
+/* العنوان */
 .title{
     font-size:36px;
     margin-bottom:30px;
@@ -53,6 +71,7 @@ body{
     color:#e50914;
 }
 
+/* صندوق البحث */
 .search-box{
     display:flex;
     border:2px solid #ccc;
@@ -83,6 +102,7 @@ body{
     background:#c40812;
 }
 
+/* النص السفلي */
 .sub-text{
     margin-top:25px;
     font-size:20px;
@@ -100,6 +120,7 @@ body{
 <div class="main-wrapper">
 
 <div class="logo-section">
+    <!-- مهم: استخدم PNG شفاف -->
     <img src="موقع قصة-عشق.webp" alt="قصة عشق">
 </div>
 
