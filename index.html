@@ -15,131 +15,69 @@ body{
     justify-content:center;
     align-items:center;
     height:100vh;
-    background:#0b0b0b;
+    background:#eeeeee;
     font-family:sans-serif;
-    color:white;
-    overflow:hidden;
 }
 
 .main-wrapper{
     text-align:center;
     width:90%;
-    max-width:600px;
-}
-
-.logo-section{
-    margin-bottom:40px;
-    animation:fadeIn 1.2s ease forwards;
+    max-width:700px;
 }
 
 .logo-section img{
-    width:340px;
-    max-width:90%;
-    border-radius:20px;
-    transition:0.4s ease;
-    filter:
-        drop-shadow(0 0 25px rgba(229,9,20,0.4))
-        drop-shadow(0 0 60px rgba(229,9,20,0.2));
+    width:160px;
+    margin-bottom:20px;
 }
 
-.logo-section img:hover{
-    transform:scale(1.05);
-    filter:
-        drop-shadow(0 0 35px rgba(229,9,20,0.7))
-        drop-shadow(0 0 80px rgba(229,9,20,0.4));
+.title{
+    font-size:36px;
+    margin-bottom:30px;
+    font-weight:bold;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.9);}
-    to{opacity:1; transform:scale(1);}
+.title span{
+    color:#e50914;
 }
 
-.search-box-container{
-    position:relative;
-    width:100%;
-}
-
-.custom-bar{
+.search-box{
     display:flex;
-    align-items:center;
-    background:#1a1a1a;
-    border-radius:50px;
-    padding:6px 10px;
-    border:1px solid #333;
-    transition:0.3s ease;
+    border:2px solid #ccc;
+    border-radius:6px;
+    overflow:hidden;
+    background:white;
 }
 
-.custom-bar:focus-within{
-    border-color:#e50914;
-    box-shadow:0 0 15px rgba(229,9,20,0.5);
-}
-
-input#mainSearch{
+.search-box input{
     flex:1;
-    background:transparent;
-    border:none;
-    padding:12px 20px;
-    color:white;
+    padding:15px;
     font-size:18px;
+    border:none;
     outline:none;
     text-align:right;
 }
 
-.btn-search{
+.search-btn{
     background:#e50914;
+    color:white;
     border:none;
-    color:white;
-    padding:10px 25px;
-    border-radius:40px;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:15px;
-    transition:0.2s;
-}
-
-.btn-search:hover{
-    background:#ff121d;
-}
-
-#sugBox{
-    position:absolute;
-    top:110%;
-    left:0;
-    right:0;
-    background:#1a1a1a;
-    border:1px solid #333;
-    border-radius:15px;
-    display:none;
-    z-index:1000;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,0.7);
-}
-
-.sug-item{
-    padding:12px 20px;
-    text-align:right;
-    cursor:pointer;
-    border-bottom:1px solid #222;
-    color:#bbb;
-    font-size:15px;
-}
-
-.sug-item:hover{
-    background:#e50914;
-    color:white;
-}
-
-.footer-text{
-    margin-top:35px;
-    color:#888;
+    padding:0 25px;
     font-size:20px;
-    font-weight:500;
+    cursor:pointer;
 }
 
-.footer-text span{
-    color:#e50914;
-    font-weight:bold;
-    font-size:22px;
+.search-btn:hover{
+    background:#c40812;
+}
+
+.sub-text{
+    margin-top:25px;
+    font-size:20px;
+    color:#555;
+}
+
+.sub-text span{
+    color:#2b6ca3;
 }
 </style>
 </head>
@@ -149,28 +87,27 @@ input#mainSearch{
 <div class="main-wrapper">
 
 <div class="logo-section">
-    <img src="قصة-عشق.webp" alt="قصة عشق">
+    <img src="logo.webp" alt="قصة عشق">
 </div>
 
-<div class="search-box-container">
-    <div class="custom-bar">
-        <input type="text" id="mainSearch" placeholder="ابحث عن مسلسلك المفضل..." autocomplete="off">
-        <button class="btn-search" id="execSearch">بحث</button>
-    </div>
-    <div id="sugBox"></div>
+<div class="title">
+    محرك بحث <span>قصة عشق</span>
 </div>
 
-<div class="footer-text">
-    محرك بحث ذكي مخصص لموقع <span>قصة عشق</span>
+<div class="search-box">
+    <input type="text" id="mainSearch" placeholder="ابحث عن مسلسلك المفضل...">
+    <button class="search-btn" id="execSearch">🔍</button>
+</div>
+
+<div class="sub-text">
+    أفضل محركات البحث لجميع <span>المسلسلات و الافلام التركية</span>
 </div>
 
 </div>
 
 <script>
 const sInput=document.getElementById('mainSearch');
-const sBox=document.getElementById('sugBox');
 const sBtn=document.getElementById('execSearch');
-let debounceTimer;
 
 function startSearch(val){
     if(val.trim()!==""){
@@ -182,50 +119,6 @@ sBtn.onclick=()=>startSearch(sInput.value);
 
 sInput.addEventListener("keydown",function(e){
     if(e.key==="Enter") startSearch(this.value);
-    if(e.key==="Escape") sBox.style.display="none";
-});
-
-sInput.addEventListener("input",function(){
-    clearTimeout(debounceTimer);
-    const q=this.value.trim();
-    if(q.length<2){
-        sBox.style.display="none";
-        return;
-    }
-    debounceTimer=setTimeout(()=>{fetchSuggestions(q);},300);
-});
-
-function fetchSuggestions(query){
-    const script=document.createElement("script");
-    script.src=`https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(query)}&callback=googleSuggest`;
-    document.body.appendChild(script);
-    document.body.removeChild(script);
-}
-
-window.googleSuggest=function(data){
-    const suggestions=data[1];
-    sBox.innerHTML="";
-    if(suggestions.length===0){
-        sBox.style.display="none";
-        return;
-    }
-    suggestions.slice(0,6).forEach(text=>{
-        const div=document.createElement("div");
-        div.className="sug-item";
-        div.textContent=text;
-        div.onclick=()=>{
-            sInput.value=text;
-            startSearch(text);
-        };
-        sBox.appendChild(div);
-    });
-    sBox.style.display="block";
-};
-
-document.addEventListener("click",function(e){
-    if(!e.target.closest(".search-box-container")){
-        sBox.style.display="none";
-    }
 });
 </script>
 
