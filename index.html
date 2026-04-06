@@ -47,10 +47,10 @@ body{
 .search-box{
     display:flex;
     border-radius:50px;
-    overflow:hidden;
+    overflow:visible; /* ✅ الإصلاح الحقيقي هنا */
     background:#1a1a1a;
     border:1px solid #222;
-    position:relative; /* ✅ الإصلاح هنا فقط */
+    position:relative;
 }
 
 .search-box input{
@@ -77,7 +77,6 @@ body{
     background:#ff1a1a;
 }
 
-/* بدون تغيير */
 #sugBox{
     position:absolute;
     top:110%;
