@@ -50,6 +50,7 @@ body{
     overflow:hidden;
     background:#1a1a1a;
     border:1px solid #222;
+    position:relative; /* ✅ الإصلاح هنا فقط */
 }
 
 .search-box input{
@@ -74,6 +75,16 @@ body{
 
 .search-btn:hover{
     background:#ff1a1a;
+}
+
+/* بدون تغيير */
+#sugBox{
+    position:absolute;
+    top:110%;
+    left:0;
+    right:0;
+    display:none;
+    z-index:999;
 }
 
 .sub-text{
@@ -132,9 +143,7 @@ body{
 <input type="text" id="mainSearch" placeholder="ابحث عن مسلسلك المفضل..." autocomplete="off">
 <button class="search-btn" id="execSearch">🔍</button>
 
-<!-- تم إضافة هذا فقط -->
 <div id="sugBox"></div>
-
 </div>
 
 <div class="sub-text">
@@ -187,7 +196,6 @@ sInput.addEventListener("keydown",function(e){
     if(e.key==="Enter") startSearch(this.value);
 });
 
-/* إصلاح الإكمال التلقائي */
 sInput.addEventListener("input",function(){
     clearTimeout(debounceTimer);
     const q=this.value.trim();
