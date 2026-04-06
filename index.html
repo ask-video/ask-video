@@ -25,9 +25,22 @@ body{
     max-width:700px;
 }
 
+/* 🔥 الشعار بدون خلفية + توهج */
 .logo-section img{
     width:160px;
     margin-bottom:20px;
+    background:transparent;
+    border:none;
+    box-shadow:
+        0 0 25px rgba(229,9,20,0.4),
+        0 0 60px rgba(229,9,20,0.2);
+    filter:drop-shadow(0 0 15px rgba(229,9,20,0.6));
+    transition:0.4s;
+}
+
+.logo-section img:hover{
+    transform:scale(1.05);
+    filter:drop-shadow(0 0 25px rgba(229,9,20,0.9));
 }
 
 .title{
@@ -87,7 +100,7 @@ body{
 <div class="main-wrapper">
 
 <div class="logo-section">
-    <img src="موقع قصة-عشق.webp" alt="قصة عشق">
+    <img src="قصة-عشق.webp" alt="قصة عشق">
 </div>
 
 <div class="title">
